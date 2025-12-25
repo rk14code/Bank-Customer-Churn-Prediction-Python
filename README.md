@@ -1,9 +1,13 @@
-# Credit Card Customer_Segmentation
+# 💳 Credit Card Customer Segmentation Using Clustering Analysis
+## 📌 Project Overview
+This project focuses on customer segmentation for a credit card business using **unsupervised machine learning techniques.** By analyzing demographic, behavioral, and transactional attributes, the goal is to identify distinct customer groups that differ in spending behavior, credit usage, engagement level, and attrition risk.
 
-This dataset contains a wealth of customer information collected from within a consumer credit card portfolio, with the aim of helping analysts predict customer attrition. It includes comprehensive demographic details such as age, gender, marital status and income category, as well as insight into each customer’s relationship with the credit card provider such as the card type, number of months on book and inactive periods. Additionally it holds key data about customers’ spending behavior drawing closer to their churn decision such as total revolving balance, credit limit, average open to buy rate and analyzable metrics like total amount of change from quarter 4 to quarter 1, average utilization ratio and Naive Bayes classifier attrition flag (Card category is combined with contacts count in 12months period alongside dependent count plus education level & months inactive). Faced with this set of useful predicted data points across multiple variables capture up-to-date information that can determine long term account stability or an impending departure therefore offering us an equipped understanding when seeking to manage a portfolio or serve individual customers
+Through **exploratory data analysis (EDA)**, **data preprocessing**, **dimensionality reduction**, and **KMeans clustering**, the project uncovers meaningful customer segments that can help financial institutions design targeted marketing strategies, retention plans, and personalized credit offerings.
 ___
-# About this file
-This dataset provides customer information to predict customer attrition for a consumer credit card portfolio.
+## 📊 Dataset Description
+Each row represents a unique credit card customer along with their demographic profile, account information, and transaction behavior.
+
+Key Features Include:
 
 **CLIENTNUM:** Unique identifier for each customer. (Integer)
 
@@ -49,27 +53,179 @@ This dataset provides customer information to predict customer attrition for a c
 
 **Naive_Bayes_Classifier_Attrition_Flag_Card_Category_Contacts_Count_12_mon_Dependent_count_Education_Level_Months_Inactive_12_mon_1:** Naive Bayes classifier for predicting whether or not someone will churn based on characteristics such.
 ___
-# Tools Used
-Numpy
-Pandas
-Matplotlib
-Seaborn
-Scikit-learn
-Plotly
+
+### Dataset Cleaning Highlights:
+
+- Dropped columns related to pre-computed Naive Bayes scores
+
+- Removed rows containing Unknown values in: Education_Level, Marital_Status, Income_Category
+  
+- Removed outliers using the IQR method
 ___
-What we will do:
-Reading the data
-Data Cleaning
-Dealing with duplicates
-Dealing with irrelevant columns
-Dealing with outliers
-Exploratory Data Analysis
-Data Preparation
-Data Preparation
-Label Encoding
-Scaling
-Dimentionality Reduction
-Model Building with Kmeans Algorithm
-Customer Profiling
-KMeans Clustering and how it works?
-K-Means Clustering is an Unsupervised Machine Learning algorithm, which groups the unlabeled dataset into different clusters. The algorithm assigns data points to one of the K clusters depending on their distance from the center of the clusters. It starts by randomly assigning the clusters centroid in the space. Then each data point assign to one of the cluster based on its distance from centroid of the cluster. After assigning each point to one of the cluster, new cluster centroids are assigned. This process runs iteratively until it finds good cluster. In the analysis we assume that number of cluster is given in advanced and we have to put points in one of the group.
+## 🛠️ Skills & Tools Used
+- **Programming & Libraries**
+
+  - **Python:** Pandas, NumPy
+
+  - **Data Visualization:** Matplotlib, Seaborn, Plotly, heatmaps
+
+  - **Machine Learning:** Scikit-learn
+
+- **Data Processing & Feature Handling**
+
+  - Label Encoding for categorical variables
+
+  - Standard Scaling for numerical features
+
+  - Outlier detection using IQR method
+
+- **Dimensionality Reduction**
+
+  - Principal Component Analysis (PCA)
+
+  - Reduced high-dimensional data to 3 components for visualization and clustering
+
+- **Clustering & Evaluation**
+
+  - KMeans Clustering
+
+  - Silhouette Score to determine optimal number of clusters
+___
+## 🔎 Exploratory Data Analysis (EDA) – Key Insights
+- **Customer Attrition**
+
+  - Around ~16% customers have attrited, while ~84% remain active.
+
+- **Demographics**
+
+  - Average customer age is ~46 years, ranging from 26 to 73.
+
+  - Gender distribution is fairly balanced.
+
+  - Most customers are graduates and married.
+
+- **Income & Card Usage**
+
+  - Customers earning less than $40K annually form the largest group.
+
+  - Blue cards are the most widely used, while Platinum cards are rare.
+
+- **Activity & Engagement**
+
+  - Average tenure with the bank is 36 months.
+
+  - Majority of customers were inactive for 2–3 months in the last year.
+
+  - Most customers contacted the bank 2–3 times annually.
+
+- **Correlation Insights**
+
+  - Strong positive correlation between total transaction amount & transaction count.
+
+  - Credit limit shows negative correlation with utilization ratio and positive relationship with “open to buy”.
+
+  - Several monetary features show positive skewness, motivating outlier handling.
+___
+## 🤖 Modeling Approach
+- **Data Preparation**
+
+  - Encoded categorical variables using Label Encoding
+
+  - Scaled all features using StandardScaler
+
+- **Dimensionality Reduction**
+
+  - Applied PCA (3 components) to enable visualization and improve clustering efficiency
+
+- **Optimal Cluster Selection**
+
+  - Evaluated clusters from k = 2 to 10 using Silhouette Score
+
+  - Optimal number of clusters: k = 3
+
+  - Best Silhouette Score ≈ 0.33
+
+- **KMeans Clustering**
+
+  - Final model built using KMeans with 3 clusters
+
+  - Clusters visualized in 3D PCA space
+___
+## 📌 Customer Segments & Profiles
+### 🔴 Cluster 0 – High-Value Loyal Customers
+
+- High credit limit, medium transaction amount
+
+- Median age ≈ 46 years
+
+- Wide transaction frequency (low to very high)
+
+- Very low attrition rate
+
+- Moderate inactivity, regular customer engagement
+
+**Business Insight:**
+This segment represents financially stable and loyal customers.
+They should be prioritized for:
+
+- Credit limit upgrades
+
+- Premium card offers
+
+- Exclusive loyalty rewards
+
+### 🟢 Cluster 1 – Active Mass Segment
+
+- Low credit limit, medium transaction amount
+
+- Large customer base
+
+- High engagement with customer support
+
+- Low attrition but higher inactivity periods
+
+**Business Insight:**
+This is a growth-oriented segment.
+Recommended actions:
+
+- Gradual credit limit enhancements
+
+- Upsell opportunities
+
+- Personalized engagement campaigns
+
+### 🔵 Cluster 2 – High Churn Risk Customers
+
+- Low credit limit & low transaction amount
+
+- Median age ≈ 50 years
+
+- Almost equal proportion of attrited and existing customers
+
+- Lower transaction frequency
+
+**Business Insight:**
+This segment is at high risk of churn.
+Retention strategies include:
+
+- Targeted offers and incentives
+
+- Re-engagement campaigns
+
+- Lower-fee card alternatives
+___
+## 🧠 Business Value
+
+- Enables customer-centric marketing strategies
+
+- Helps banks proactively reduce customer churn
+
+- Supports risk-based segmentation and smarter credit decisions
+
+- Improves allocation of retention and loyalty budgets
+___
+## 📌 Conclusion
+
+- This project demonstrates how unsupervised learning techniques, combined with thorough EDA and dimensionality reduction, can uncover actionable customer segments in the credit card domain.
+
+- By translating raw transaction and demographic data into clear customer personas, the analysis bridges the gap between data science and real-world business strategy—making it valuable for both academic learning and financial industry applications.
